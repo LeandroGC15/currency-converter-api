@@ -1,0 +1,2 @@
+# Dependencias para el script get_dolar.py
+requests>=2.31.0
