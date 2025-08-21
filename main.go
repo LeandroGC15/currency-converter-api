@@ -30,11 +30,11 @@ func main() {
 
 	// Configurar servidor HTTP
 	server := &http.Server{
-		Addr:         cfg.Port,
+		Addr:         ":" + cfg.Port,  // Agregar los dos puntos aquí
 		Handler:      httpHandler.NewRouter(handler, logger),
-		ReadTimeout:  10 * time.Second,
-		WriteTimeout: 15 * time.Second,
-		IdleTimeout:  60 * time.Second,
+		ReadTimeout:  cfg.ReadTimeout,
+		WriteTimeout: cfg.WriteTimeout,
+		IdleTimeout:  cfg.IdleTimeout,
 	}
 
 	// Canal para manejar señales de terminación
@@ -43,7 +43,7 @@ func main() {
 
 	// Iniciar servidor en una goroutine
 	go func() {
-		logger.Infof("Servidor escuchando en http://localhost%s", cfg.Port)
+		logger.Infof("Servidor escuchando en http://localhost:%s", cfg.Port)
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			logger.Fatalf("Error al iniciar el servidor: %v", err)
 		}

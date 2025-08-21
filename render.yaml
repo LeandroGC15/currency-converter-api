@@ -2,15 +2,16 @@ services:
   - type: web
     name: conversor-monedas
     env: go
-    buildCommand: go mod tidy && go build -o conversor
+    buildCommand: go mod tidy && go build -o conversor -buildvcs=false
     startCommand: ./conversor
     envVars:
-      - key: PORT
-        value: 10000
+      # No es necesario establecer PORT manualmente, Render lo asigna automáticamente
       - key: CACHE_TTL
-        value: 5
+        value: 5m
       - key: GO_VERSION
-        value: 1.20
+        value: 1.18
+      - key: ENVIRONMENT
+        value: production
     plan: free
     autoDeploy: true
     region: oregon
