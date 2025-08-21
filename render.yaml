@@ -5,7 +5,7 @@ services:
     buildCommand: go mod tidy && go build -o conversor -buildvcs=false
     startCommand: ./conversor
     envVars:
-      # No es necesario establecer PORT manualmente, Render lo asigna automáticamente
+      # Render inyecta automáticamente la variable PORT
       - key: CACHE_TTL
         value: 5m
       - key: GO_VERSION
@@ -16,3 +16,4 @@ services:
     autoDeploy: true
     region: oregon
     healthCheckPath: /api/v1/health
+    healthCheckTimeout: 120  # Aumentar el timeout para dar tiempo a que la aplicación se inicie

@@ -30,12 +30,14 @@ func main() {
 
 	// Configurar servidor HTTP
 	server := &http.Server{
-		Addr:         ":" + cfg.Port,  // Agregar los dos puntos aquí
+		Addr:         "0.0.0.0:" + cfg.Port,  // Escuchar en todas las interfaces
 		Handler:      httpHandler.NewRouter(handler, logger),
 		ReadTimeout:  cfg.ReadTimeout,
 		WriteTimeout: cfg.WriteTimeout,
 		IdleTimeout:  cfg.IdleTimeout,
 	}
+	
+	logger.Infof("Servidor configurado en %s", server.Addr)
 
 	// Canal para manejar señales de terminación
 	done := make(chan os.Signal, 1)
