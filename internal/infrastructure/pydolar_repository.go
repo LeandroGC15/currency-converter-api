@@ -51,6 +51,9 @@ func (r *PyDolarRepository) GetExchangeRate(currency string) (*core.ExchangeRate
 	cmd := exec.Command("python3", "get_dolar.py", "--currency", strings.ToLower(currency))
 	output, err := cmd.Output()
 	if err != nil {
+		if exitErr, ok := err.(*exec.ExitError); ok {
+			return nil, fmt.Errorf("error al ejecutar el script Python: %v, stderr: %s", err, string(exitErr.Stderr))
+		}
 		return nil, fmt.Errorf("error al ejecutar el script Python: %v", err)
 	}
 
