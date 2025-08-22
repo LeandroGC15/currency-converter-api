@@ -2,7 +2,7 @@ services:
   - type: web
     name: conversor-monedas
     env: go
-    buildCommand: go mod tidy && go build -o conversor -buildvcs=false
+    buildCommand: pip install -r requirements.txt && go mod tidy && go build -o conversor -buildvcs=false
     startCommand: ./conversor
     envVars:
       # Render inyecta automáticamente la variable PORT
