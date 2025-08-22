@@ -1,9 +1,8 @@
 services:
   - type: web
     name: conversor-monedas
-    env: go
-    buildCommand: pip install -r requirements.txt && go mod tidy && go build -o conversor -buildvcs=false
-    startCommand: ./conversor
+    env: docker # Cambiar el entorno a Docker
+    # buildCommand y startCommand son manejados por el Dockerfile
     envVars:
       # Render inyecta automáticamente la variable PORT
       - key: CACHE_TTL
